@@ -1,0 +1,130 @@
+$base_const:1;
+$base_color:#000;
+
+.modal-mask{
+       position: fixed;
+       top: 0;
+       left: 0;
+       right: 0;
+       bottom: 0;
+       z-index: 99;
+       background-color: $base_color;
+      opacity: 0;
+      filter: alpha(opacity=0);
+      &.fade{
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+            transition-property:opacity;
+            transition-duration:5s;
+            transition-delay:20s;
+      }
+}
+.base-before-after{
+         -webkit-box-sizing: border-box;
+         -moz-box-sizing: border-box;
+         box-sizing: border-box;
+         content: "";
+         display: table;
+}
+
+.modal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    overflow: hidden;
+    &.fade{
+            opacity: 1;
+            filter: alpha(opacity=100);
+            transition-property:opacity;
+            transition-duration:5s;
+            transition-delay:20s;	
+     }
+    & .modal-dialog{
+    	position: relative;
+    	margin: 0 auto;
+                top: 100px;
+                transition: top 2s;
+                 -moz-transition: top 2s;
+                -webkit-transition: top 2s;
+                -o-transition: top 2s;
+    }
+
+     & .modal-content{
+     	    position: relative;
+	    background-color: #ffffff;
+	    border: 1px solid #999999;
+	    border: 1px solid rgba(0, 0, 0, 0.2);
+	    border-radius: 6px;
+	    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+	    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+	    -webkit-background-clip: padding-box;
+	    background-clip: padding-box;
+	    outline: 0;
+	    & .modal-header{
+                           padding: 15px;
+                           border-bottom: 1px solid #e5e5e5;
+                           &:before{
+                                   @extend .base-before-after;
+                           }
+                           &:after{
+                                  @extend .base-before-after;
+                                  clear: both;
+                           }
+
+                           & .close{
+                           	    padding:0;
+                           	    cursor: pointer;
+                           	    background-color:transparent;
+                           	    border:0;
+                           	    outline:0;
+                           	    float: right;
+		    font-size: 21px;
+		    font-weight: 100;
+		    line-height: 1;
+		    color: #000000;
+		    text-shadow: 0 1px 0 #ffffff;
+                           	    -webkit-appearance: none;
+                           }
+
+                           & .modal-title{
+                           	  font-size:18px;
+                           	  margin: 0;
+                                 line-height: 1.42857143;
+                                 color:#333333;
+                                 font-weight:500;
+                           }
+	    }
+
+	     & .modal-main{
+	              position: relative;
+                              padding: 15px;
+	    }
+
+	     & .modal-footer{
+	              padding: 15px;
+                              text-align: right;
+                              border-top: 1px solid #e5e5e5;	
+	             &:before{
+                                   @extend .base-before-after;
+                            }
+                            &:after{
+                                  @extend .base-before-after;
+                                  clear: both;
+                            }
+
+                            & .btn + .btn{
+                            	    margin-left: 8px;
+                                   margin-bottom: 0;
+                            }
+	    }
+     }
+
+
+}
