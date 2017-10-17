@@ -11,10 +11,9 @@
     border: 1px solid transparent;
     white-space: nowrap;
     line-height: 1.15;
-    padding: 0 15px;
+    padding: 6px 15px;
     font-size: 12px;
     border-radius: 4px;
-    height: 28px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -35,16 +34,27 @@
               background-color: #108ee9;
               border-color: #108ee9;
               &:hover{
-    	  opacity: 0.8;
-    	  filter: alpha(opacity=80);
+    	            opacity: 0.8;
+    	            filter: alpha(opacity=80);
              }
+     }
+     
+     &.btn-big{
+             padding: 8px 15px;
+             font-size: 14px;
+             border-radius: 4px;
+             line-height:1.265;
      }
 
      &.btn-lg{
-             padding: 0 15px;
-             font-size: 14px;
+             padding: 10px 15px;
+             font-size: 16px;
              border-radius: 4px;
-             height: 32px;
+             line-height:1.333;
+     }
+
+     &.btn-block{
+             width:100%;
      }
 
 }

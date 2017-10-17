@@ -69,8 +69,8 @@ export default class Modal extends Component {
                                         		</div>
                                         		<div className="modal-main">{children}</div>
                                         		<div className="modal-footer">
-                                                                            <Button size="lg" onClick={(e)=>this.onClose(e)}>{cancelText}</Button>
-                                                                            <Button type="primary" size="lg" onClick={(e)=>this.handleOk(e)}>{okText}</Button>
+                                                                            <Button size="big"  onClick={(e)=>this.onClose(e)}>{cancelText}</Button>
+                                                                            <Button type="primary" size="big"  onClick={(e)=>this.handleOk(e)}>{okText}</Button>
                                         		</div>
                                         	</div>
                                         </div>

@@ -12,10 +12,12 @@ export default class DatePicker extends Component{
                                 hour:0,
                                 minute:0,
                                 seconds:0,
+                                dateVisible:false,
                                 timeVisible:false,
                                 monthFirstDay:0,
                                 monthTotal:30,
-                                prevToal:30
+                                prevToal:30,
+                                selectedTime:''
                        }
 	}
 
@@ -232,18 +234,25 @@ export default class DatePicker extends Component{
                        let seconds = e.currentTarget.innerText*1;
                        this.setState({seconds:seconds});
                 }
+        setDateVisible(flag){
+             this.setState({dateVisible:flag});
+        }
+        
+        setTimeVisible(flag){
+             this.setState({timeVisible:flag});
+        }    
 
 	render(){
-                       const {monthFirstDay,monthTotal,prevToal,day,hour,minute,seconds} = this.state;
+                       const {monthFirstDay,monthTotal,prevToal,day,hour,minute,seconds,dateVisible,timeVisible} = this.state;
                        const {spliter,weeks,cells,maxHour,maxMiSe} = this.props;
                        let daysList = new Array(),hourList=new Array(),minuteList = new Array(),secondsList = new Array();
                        for(let mf=monthFirstDay;mf>0;mf--){
-                       	daysList.push(React.createElement('td',{
-                       		key:mf+'prev',
-                       		className:'date-picker-day-prev'
-                       	},React.createElement('span',{
-                       		className:'date-picker-day-cell'	
-                       	},prevToal-mf)));
+                         	daysList.push(React.createElement('td',{
+                         		key:mf+'prev',
+                         		className:'date-picker-day-prev'
+                         	},React.createElement('span',{
+                         		className:'date-picker-day-cell'	
+                         	},prevToal-mf)));
                        }
 
                        for(let mt=0;mt<monthTotal;mt++){
@@ -257,12 +266,12 @@ export default class DatePicker extends Component{
                        }
 
                        for(let mn=0;mn<(cells-monthTotal);mn++){
-                       	daysList.push(React.createElement('td',{
-                       		key:mn+'next',
-                       		className:'date-picker-day-next'
-                       	},React.createElement('span',{
-                       		className:'date-picker-day-cell'
-                       	},mn+1)))
+                         	daysList.push(React.createElement('td',{
+                         		key:mn+'next',
+                         		className:'date-picker-day-next'
+                         	},React.createElement('span',{
+                         		className:'date-picker-day-cell'
+                         	},mn+1)))
                        }
                        
                        for(let h=0;h<maxHour;h++){
@@ -291,101 +300,108 @@ export default class DatePicker extends Component{
 
 	       return(<div className="date-wrap">
 	       	<div className="date-input-box">
-                                      <input type="text"/>
+                          <input type="text"  className="date-picker-input" value="" onClick={()=>this.setDateVisible(true)}/>
 	       	</div>
-	       	<div className="date-picker-box">
+	       	<div className="date-picker-box" style={{display:dateVisible?'block':'none'}}>
 		       	<div className="date-box-header">
-                                                         <div className="date-prev-btns">
-                                                                   <button onClick={()=>this.prevYear()} className="date-year-prev-btn">
-                                                                            <span data-role="arrow">
-                                                                              	<i className="date-icon-arrow"></i>
-                                                                              	<i className="date-icon-arrow"></i>
-                                                                              </span>
-                                                                              <span data-role="arrow">
-                                                                              	<i className="date-icon-arrow"></i>
-                                                                              	<i className="date-icon-arrow"></i>
-                                                                              </span>  
-                                                                   </button>
-                                                                   <button onClick={()=>this.prevMonth()} className="date-month-prev-btn">
-                                                                             <span data-role="arrow">
-                                                                              	<i className="date-icon-arrow"></i>
-                                                                              	<i className="date-icon-arrow"></i>
-                                                                              </span>     
-                                                                   </button>   
-                                                         </div>
-                                                         <div className="date-montn-year">
-                                                               <span>{this.state.year}年</span><span>{this.state.month}月</span>
-                                                         </div>
-                                                         <div className="date-next-btns">
-                                                                     <button onClick={()=>this.prevMonth()} className="date-month-next-btn">
-                                                                                   <span data-role="arrow">
-                                                                              	<i className="date-icon-arrow"></i>
-                                                                              	<i className="date-icon-arrow"></i>
-                                                                                  </span>
-                                                                     </button>  
-                                                                     <button onClick={()=>this.nextYear()} className="date-year-next-btn">
-                                                                               <span data-role="arrow">
-                                                                              	<i className="date-icon-arrow"></i>
-                                                                              	<i className="date-icon-arrow"></i>
-                                                                              </span>
-                                                                              <span data-role="arrow">
-                                                                              	<i className="date-icon-arrow"></i>
-                                                                              	<i className="date-icon-arrow"></i>
-                                                                              </span>     
-                                                                     </button>
-                                                         </div>
-		       	</div>
-		       	<div className="date-box-main">
-                                                       <table className="date-picker-table">
-                                                       	<thead>
-                                                       		<tr>
-                                                       			<th className="date-picker-week">日</th>
-                                                       			<th className="date-picker-week">一</th>
-                                                       			<th className="date-picker-week">二</th>
-                                                       			<th className="date-picker-week">三</th>
-                                                       			<th className="date-picker-week">四</th>
-                                                       			<th className="date-picker-week">五</th>
-                                                       			<th className="date-picker-week">六</th>
-                                                       		</tr>
-                                                       	</thead>
-                                                       	<tbody>
-                                                       	        {spliter.map((item,index)=>{
-                                                       	        	return (<tr key={index}>{weeks.map((it,dex)=>{
-                                                                                      return daysList[index*7+dex]
-                                                       	        	})}</tr>);	
-                                                       	        })}
-                                                       	</tbody>
-                                                       </table>
-		       	</div>
-		       	<div className="date-box-footer">
-                                                         <div className="date-select-time">
-                                                                   <a>选择时间</a>
-                                                         </div>
-                                                         <div className="date-core-btns">
-                                                                       <button className="date-btn">清空</button>
-                                                                       <button className="date-btn">现在</button>
-                                                                       <button className="date-btn">确定</button>
-                                                         </div>
+                               <div className="date-prev-btns">
+                                         <button onClick={()=>this.prevYear()} className="date-year-prev-btn">
+                                                  <span data-role="arrow">
+                                                    	<i className="date-icon-arrow"></i>
+                                                    	<i className="date-icon-arrow"></i>
+                                                    </span>
+                                                    <span data-role="arrow">
+                                                    	<i className="date-icon-arrow"></i>
+                                                    	<i className="date-icon-arrow"></i>
+                                                    </span>  
+                                         </button>
+                                         <button onClick={()=>this.prevMonth()} className="date-month-prev-btn">
+                                                   <span data-role="arrow">
+                                                    	<i className="date-icon-arrow"></i>
+                                                    	<i className="date-icon-arrow"></i>
+                                                    </span>     
+                                         </button>   
+                               </div>
+                               <div className="date-montn-year">
+                                     <span>{this.state.year}年</span><span>{this.state.month}月</span>
+                               </div>
+                               <div className="date-next-btns">
+                                           <button onClick={()=>this.prevMonth()} className="date-month-next-btn">
+                                                         <span data-role="arrow">
+                                                    	<i className="date-icon-arrow"></i>
+                                                    	<i className="date-icon-arrow"></i>
+                                                        </span>
+                                           </button>  
+                                           <button onClick={()=>this.nextYear()} className="date-year-next-btn">
+                                                     <span data-role="arrow">
+                                                    	<i className="date-icon-arrow"></i>
+                                                    	<i className="date-icon-arrow"></i>
+                                                    </span>
+                                                    <span data-role="arrow">
+                                                    	<i className="date-icon-arrow"></i>
+                                                    	<i className="date-icon-arrow"></i>
+                                                    </span>     
+                                           </button>
+                               </div>
+                        </div>
+                        <div className="date-box-main">
+                             <table className="date-picker-table">
+                             	<thead>
+                             		<tr>
+                             			<th className="date-picker-week">日</th>
+                             			<th className="date-picker-week">一</th>
+                             			<th className="date-picker-week">二</th>
+                             			<th className="date-picker-week">三</th>
+                             			<th className="date-picker-week">四</th>
+                             			<th className="date-picker-week">五</th>
+                             			<th className="date-picker-week">六</th>
+                             		</tr>
+                             	</thead>
+                             	<tbody>
+                             	        {spliter.map((item,index)=>{
+                             	        	return (<tr key={index}>{weeks.map((it,dex)=>{
+                                                            return daysList[index*7+dex]
+                             	        	})}</tr>);	
+                             	        })}
+                             	</tbody>
+                             </table>
+                      </div>
+                      <div className="date-box-footer">
+                               <div className="date-select-time">
+                                         <a onClick={()=>this.setTimeVisible(true)}>选择时间</a>
+                               </div>
+                               <div className="date-core-btns">
+                                             <button className="date-btn">清空</button>
+                                             <button className="date-btn">现在</button>
+                                             <button className="date-btn">确定</button>
+                               </div>
 		       	</div>
 	       	</div>
-	       	<div className="time-picker-box" style={{display:this.state.timeVisible?'block':'none'}}>
-                                         <div className="time-box-header">
-                                                   <span>{this.state.year}-{this.state.month}-{this.state.day}</span>
+	       	<div className="time-picker-box" style={{display:timeVisible?'block':'none'}}>
+                             <div className="time-box-header">
+                                       <span>{this.state.year}-{this.state.month}-{this.state.day}</span>
+                             </div>
+                             <div className="time-box-main">
+                                          <div className="time-main-item">
+                                                    <ul className="time-for-hour">{hourList}</ul>
                                          </div>
-                                         <div className="time-box-main">
-                                                      <div className="time-main-item">
-                                                                <ul className="time-for-hour">{hourList}</ul>
-                                                     </div>
-                                                      <div className="time-main-item">
-                                                                 <ul className="time-for-minute">{minuteList}</ul>
-                                                      </div>
-                                                      <div className="time-main-item">
-                                                              <ul className="time-for-seconds">{secondsList}</ul>
-                                                      </div>
-                                         </div>
-                                         <div className="time-box-footer">
-
-                                         </div>
+                                          <div className="time-main-item">
+                                                     <ul className="time-for-minute">{minuteList}</ul>
+                                          </div>
+                                          <div className="time-main-item">
+                                                  <ul className="time-for-seconds">{secondsList}</ul>
+                                          </div>
+                             </div>
+                             <div className="time-box-footer">
+                                      <div className="date-select-day">
+                                         <a onClick={()=>this.setTimeVisible(false)}>选择时间</a>
+                                      </div>
+                                      <div className="time-core-btns">
+                                             <button className="date-btn">清空</button>
+                                             <button className="date-btn">现在</button>
+                                             <button className="date-btn">确定</button>
+                                       </div>
+                             </div>
 	       	</div>
 	       </div>)	
 	}
