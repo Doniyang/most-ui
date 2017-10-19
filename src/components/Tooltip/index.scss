@@ -1,0 +1,114 @@
+.tooltip-box{
+          display: inline-block;
+          position: relative;
+          & .tooltip-context{
+                  display:inline-block;
+          }
+}
+
+.tooltip-wrap{
+       position: absolute;
+       z-index: 2017;
+       cursor: auto;
+       -webkit-user-select: text;
+       -moz-user-select: text;
+       -ms-user-select: text;
+       user-select: text;
+       white-space: normal;
+       font-size: 12px;
+       line-height: 1.5;
+       font-weight: 400;
+       text-align: left;
+       min-width:142px;
+       & .tooltip-dialog{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	
+	&.tool-site-right{
+               transform: translate(0,-100%); 
+              & .tooltip-arrow{
+              	    right: 16px;
+              } 
+	}
+        
+        &.tool-site-left{
+               transform: translate(0,-100%); 
+              & .tooltip-arrow{
+                   left:16px;
+              } 
+        }
+
+	& .tooltip-arrow{          
+		position: absolute;
+		top:100%;
+		display: block;
+		width: 0;
+		height: 0;
+		border-color: transparent;
+		border-width: 8px;
+		border-top-color:rgba(217, 217, 217, 0.7);
+		border-style: solid;
+		&:after{
+			position: absolute;
+			content: "";
+			width: 0;
+		               height: 0;
+		               top:-9px;
+		               margin-left: -8px;
+			       display: block;
+			       border-color: transparent;
+		                border-width: 8px;
+		                border-top-color:  #fff;
+		                border-style: solid;
+
+		}
+                            
+               }
+
+               & .tooltip-content{
+               	       background-color: #fff;
+                       background-clip: padding-box;
+                       border-radius: 4px;
+                       box-shadow: 0 1px 6px rgba(0,0,0,.2);
+                       & .tooltip-header{
+                             padding: 0 12px;
+                       }
+
+                       & .tooltip-main{
+                                padding: 10px 12px;
+                                & .tooltip-hint-icon{
+                                              display: inline-block;
+                                               background-color: #ffbf00;
+                                               color: #fff;
+                                               width:17px;
+                                               height:17px;
+                                               border-radius:17px;
+                        			line-height: 17px;
+                        			vertical-align:middle;
+                        			position: absolute;
+                        			font-style: normal;
+                        			vertical-align: baseline;
+                        			text-align: center;
+                        			text-transform: none;
+                        			text-rendering: optimizeLegibility;
+                        			-webkit-font-smoothing: antialiased;
+                        			-moz-osx-font-smoothing: grayscale;
+                                }
+                                & .tooltip-hint-msg{
+                                         margin-left:20px;
+                                }
+
+                       }
+
+                       & .tooltip-footer{
+                                padding: 0 12px 12px;
+                                text-align:right;
+                                & >.btn+ .btn{
+                                	margin-left:10px;
+                                }
+                       }
+               }	
+       }
+}
+

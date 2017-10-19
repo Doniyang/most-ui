@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import Button from '../Button';
+import Button from 'Components/Button';
 import './index.scss';
 export default class Modal extends Component {
 	constructor(props){

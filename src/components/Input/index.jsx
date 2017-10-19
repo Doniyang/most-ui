@@ -8,7 +8,12 @@ export default class Input extends Component{
 	}
 
 	static get propTypes(){
-
+                     return{ 
+                     	icon:PropTypes.node,
+                               name:PropTypes.string.isRequired,
+                               placeHolder:PropTypes.string,
+                               type:PropTypes.oneOf(['text', 'password','number']).isRequired
+                      }
 	}
 
 
@@ -18,9 +23,8 @@ export default class Input extends Component{
 	      	return (<div className="input-with-icon">
                                                       <input ref={ref} name={name} type={type} placeholder={placeHolder} className="input-block"/>
                                                       <span className="input-icon">{icon}</span>
-	      		</div>)
-	      }
-
+	      		</div>);
+	      };
 	      return (<input ref={ref} name={name} type={type} placeholder={placeHolder} className="input-block"/>)
 
 	}

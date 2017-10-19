@@ -3,59 +3,59 @@ import PropTypes from 'prop-types';
 import './index.scss';
 
 export default class DatePicker extends Component{
-	constructor(props){
-	       super(props);
-                       this.state = {
-                                year:2017,
-                                month:10,
-                                day:15,
-                                hour:0,
-                                minute:0,
-                                seconds:0,
-                                dateVisible:false,
-                                timeVisible:false,
-                                monthFirstDay:0,
-                                monthTotal:30,
-                                prevToal:30,
-                                selectedTime:''
-                       }
-	}
+          	constructor(props){
+          	       super(props);
+                                 this.state = {
+                                          year:2017,
+                                          month:10,
+                                          day:15,
+                                          hour:0,
+                                          minute:0,
+                                          seconds:0,
+                                          dateVisible:false,
+                                          timeVisible:false,
+                                          monthFirstDay:0,
+                                          monthTotal:30,
+                                          prevToal:30,
+                                          dateTime:''
+                                 }
+          	}
 
-	static get propTypes(){
-                     return {
-                     	type:PropTypes.string.isRequired,
-                               cells:PropTypes.number,
-                               pickerRef:PropTypes.string,
-                               holder:PropTypes.string,
-                               spliter:PropTypes.array,
-                               weeks:PropTypes.array,
-                               maxHour:PropTypes.number,
-                               maxMiSe:PropTypes.number
-                     }
-	}
+          	static get propTypes(){
+                               return {
+                                     	type:PropTypes.string.isRequired,
+                                       cells:PropTypes.number,
+                                       name:PropTypes.string,
+                                       placeHolder:PropTypes.string,
+                                       spliter:PropTypes.array,
+                                       weeks:PropTypes.array,
+                                      maxHour:PropTypes.number,
+                                      maxMiSe:PropTypes.number
+                               }
+          	}
 
-	static get defaultProps(){
-                      return {
-                      	type:'timepicker',
-                               cells:42,
-                               maxHour:24,
-                               maxMiSe:60,
-                               spliter:[0,1,2,3,4,5],
-                               weeks:[0,1,2,3,4,5,6]   
-                      }
-	}
+          	static get defaultProps(){
+                                return {
+                                	type:'timepicker',
+                                         cells:42,
+                                         maxHour:24,
+                                         maxMiSe:60,
+                                         spliter:[0,1,2,3,4,5],
+                                         weeks:[0,1,2,3,4,5,6]   
+                                }
+          	}
 
-	componentDidMount(){
-	        let date = new Date();	
-	        let year = date.getFullYear(),month = date.getMonth()+1;
-	        this.setState({
-	        	day:date.getDate(),
-	        	hour:date.getHours(),
-	        	minute:date.getMinutes(),
-	        	seconds:date.getSeconds()
-	        });	
+	       componentDidMount(){
+        	        let date = new Date();	
+        	        let year = date.getFullYear(),month = date.getMonth()+1;
+        	        this.setState({
+        	        	day:date.getDate(),
+        	        	hour:date.getHours(),
+        	        	minute:date.getMinutes(),
+        	        	seconds:date.getSeconds()
+        	        });	
                        this.datePicker(year,month);
-	}
+	       }
                
                 datePicker(year,month){                   
                       let day = new Date(year+'-'+month+'-01').getDay();
@@ -234,17 +234,53 @@ export default class DatePicker extends Component{
                        let seconds = e.currentTarget.innerText*1;
                        this.setState({seconds:seconds});
                 }
-        setDateVisible(flag){
-             this.setState({dateVisible:flag});
-        }
-        
-        setTimeVisible(flag){
-             this.setState({timeVisible:flag});
-        }    
+                
+                setDateVisible(flag){
+                    this.setState({dateVisible:flag});
+                }
 
-	render(){
-                       const {monthFirstDay,monthTotal,prevToal,day,hour,minute,seconds,dateVisible,timeVisible} = this.state;
-                       const {spliter,weeks,cells,maxHour,maxMiSe} = this.props;
+               setTimeVisible(flag){
+                      this.setState({timeVisible:flag});
+               }
+                
+               clear(){
+                      this.setState({dateTime:'',dateVisible:false,timeVisible:false});
+               }
+
+               nowPicker(){
+                      let now = this.dateFormat(new Date(),'yyyy-MM-dd HH:mm:ss');
+                      this.setState({dateVisible:false,timeVisible:false,dateTime:now});
+               }
+
+               submit(){
+                        const {year,month,day,hour,minute,seconds} = this.state;
+                        let time = this.dateFormat(new Date(year+'-'+month+'-'+day+' '+hour+':'+minute+':'+seconds),'yyyy-MM-dd HH:mm:ss')
+                        this.setState({dateVisible:false,timeVisible:false,dateTime:time}); 
+               }
+               dateFormat(date,fmt){
+                       const o = {
+                              "M+": date.getMonth() + 1,
+                              "d+": date.getDate(), 
+                              "H+": date.getHours(),
+                              "m+": date.getMinutes(),
+                              "s+": date.getSeconds(),
+                              "q+": Math.floor((date.getMonth() + 3) / 3),
+                              "S": date.getMilliseconds()
+                        };
+                       if (/(y+)/.test(fmt)){
+                                fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length))
+                       };
+                       for (let k in o){
+                               if (new RegExp("(" + k + ")").test(fmt)) {
+                                          fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                               }   
+                       }    
+                        return fmt;
+               }   
+
+	       render(){
+                       const {monthFirstDay,monthTotal,prevToal,day,hour,minute,seconds,dateVisible,timeVisible,dateTime} = this.state;
+                       const {spliter,weeks,cells,maxHour,maxMiSe,placeHolder,name} = this.props;
                        let daysList = new Array(),hourList=new Array(),minuteList = new Array(),secondsList = new Array();
                        for(let mf=monthFirstDay;mf>0;mf--){
                          	daysList.push(React.createElement('td',{
@@ -300,7 +336,7 @@ export default class DatePicker extends Component{
 
 	       return(<div className="date-wrap">
 	       	<div className="date-input-box">
-                          <input type="text"  className="date-picker-input" value="" onClick={()=>this.setDateVisible(true)}/>
+                          <input type="text" data-role="datepicker" onClick={()=>this.setDateVisible(true)} className="date-picker-input" value={dateTime} placeholder={placeHolder} name={name} />
 	       	</div>
 	       	<div className="date-picker-box" style={{display:dateVisible?'block':'none'}}>
 		       	<div className="date-box-header">
@@ -326,7 +362,7 @@ export default class DatePicker extends Component{
                                      <span>{this.state.year}年</span><span>{this.state.month}月</span>
                                </div>
                                <div className="date-next-btns">
-                                           <button onClick={()=>this.prevMonth()} className="date-month-next-btn">
+                                           <button onClick={()=>this.nextMonth()} className="date-month-next-btn">
                                                          <span data-role="arrow">
                                                     	<i className="date-icon-arrow"></i>
                                                     	<i className="date-icon-arrow"></i>
@@ -343,65 +379,65 @@ export default class DatePicker extends Component{
                                                     </span>     
                                            </button>
                                </div>
-                        </div>
-                        <div className="date-box-main">
-                             <table className="date-picker-table">
-                             	<thead>
-                             		<tr>
-                             			<th className="date-picker-week">日</th>
-                             			<th className="date-picker-week">一</th>
-                             			<th className="date-picker-week">二</th>
-                             			<th className="date-picker-week">三</th>
-                             			<th className="date-picker-week">四</th>
-                             			<th className="date-picker-week">五</th>
-                             			<th className="date-picker-week">六</th>
-                             		</tr>
-                             	</thead>
-                             	<tbody>
-                             	        {spliter.map((item,index)=>{
-                             	        	return (<tr key={index}>{weeks.map((it,dex)=>{
-                                                            return daysList[index*7+dex]
-                             	        	})}</tr>);	
-                             	        })}
-                             	</tbody>
-                             </table>
-                      </div>
-                      <div className="date-box-footer">
-                               <div className="date-select-time">
-                                         <a onClick={()=>this.setTimeVisible(true)}>选择时间</a>
-                               </div>
-                               <div className="date-core-btns">
-                                             <button className="date-btn">清空</button>
-                                             <button className="date-btn">现在</button>
-                                             <button className="date-btn">确定</button>
-                               </div>
+		       	</div>
+		       	<div className="date-box-main">
+                                   <table className="date-picker-table">
+                                   	<thead>
+                                   		<tr>
+                                   			<th className="date-picker-week">日</th>
+                                   			<th className="date-picker-week">一</th>
+                                   			<th className="date-picker-week">二</th>
+                                   			<th className="date-picker-week">三</th>
+                                   			<th className="date-picker-week">四</th>
+                                   			<th className="date-picker-week">五</th>
+                                   			<th className="date-picker-week">六</th>
+                                   		</tr>
+                                   	</thead>
+                                   	<tbody>
+                                   	        {spliter.map((item,index)=>{
+                                   	        	return (<tr key={index}>{weeks.map((it,dex)=>{
+                                                                  return daysList[index*7+dex]
+                                   	        	})}</tr>);	
+                                   	        })}
+                                   	</tbody>
+                                   </table>
+		       	</div>
+		       	<div className="date-box-footer">
+                                     <div className="date-select-time">
+                                               <a onClick={()=>this.setTimeVisible(true)}>选择时间</a>
+                                     </div>
+                                     <div className="date-core-btns">
+                                                   <button className="date-btn" onClick={()=>this.clear()}>清空</button>
+                                                   <button className="date-btn" onClick={()=>this.nowPicker()}>现在</button>
+                                                   <button className="date-btn" onClick={()=>this.submit()}>确定</button>
+                                     </div>
 		       	</div>
 	       	</div>
 	       	<div className="time-picker-box" style={{display:timeVisible?'block':'none'}}>
-                             <div className="time-box-header">
-                                       <span>{this.state.year}-{this.state.month}-{this.state.day}</span>
-                             </div>
-                             <div className="time-box-main">
-                                          <div className="time-main-item">
-                                                    <ul className="time-for-hour">{hourList}</ul>
-                                         </div>
-                                          <div className="time-main-item">
-                                                     <ul className="time-for-minute">{minuteList}</ul>
-                                          </div>
-                                          <div className="time-main-item">
-                                                  <ul className="time-for-seconds">{secondsList}</ul>
-                                          </div>
-                             </div>
-                             <div className="time-box-footer">
-                                      <div className="date-select-day">
-                                         <a onClick={()=>this.setTimeVisible(false)}>选择时间</a>
-                                      </div>
-                                      <div className="time-core-btns">
-                                             <button className="date-btn">清空</button>
-                                             <button className="date-btn">现在</button>
-                                             <button className="date-btn">确定</button>
-                                       </div>
-                             </div>
+                                 <div className="time-box-header">
+                                           <span>{this.state.year}-{this.state.month}-{this.state.day}</span>
+                                 </div>
+                                 <div className="time-box-main">
+                                              <div className="time-main-item">
+                                                        <ul className="time-for-hour">{hourList}</ul>
+                                             </div>
+                                              <div className="time-main-item">
+                                                         <ul className="time-for-minute">{minuteList}</ul>
+                                              </div>
+                                              <div className="time-main-item">
+                                                      <ul className="time-for-seconds">{secondsList}</ul>
+                                              </div>
+                                 </div>
+                                 <div className="time-box-footer">
+                                              <div className="date-select-day">
+                                                         <a onClick={()=>this.setTimeVisible(false)}>选择时间</a>
+                                               </div>
+                                               <div className="time-core-btns">
+                                                      <button className="date-btn" onClick={()=>this.clear()}>清空</button>
+                                                      <button className="date-btn" onClick={()=>this.nowPicker()}>现在</button>
+                                                      <button className="date-btn" onClick={()=>this.submit()}>确定</button>
+                                               </div>
+                                 </div>
 	       	</div>
 	       </div>)	
 	}

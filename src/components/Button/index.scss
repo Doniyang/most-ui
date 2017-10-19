@@ -1,8 +1,10 @@
-
+$base_color:#FFF rgba(0, 0, 0, 0.65) #d9d9d9 #108ee9 #F13A30;
+$base_const:1;
+$base_size:1px;
 .btn{
     display: inline-block;
     margin-bottom: 0;
-    font-weight: 500;
+    font-weight: $base_const*500;
     text-align: center;
     -ms-touch-action: manipulation;
     touch-action: manipulation;
@@ -10,36 +12,51 @@
     background-image: none;
     border: 1px solid transparent;
     white-space: nowrap;
-    line-height: 1.15;
-    padding: 6px 15px;
-    font-size: 12px;
-    border-radius: 4px;
+    line-height: $base_const*1.15;
+    padding: $base_size*6  $base_size*15;
+    font-size: $base_size*12;
+    border-radius: $base_size*4;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     position: relative;
-    color: rgba(0, 0, 0, 0.65);
-    background-color: #fff;
-    border-color: #d9d9d9;
+    color: nth($base_color,2);
+    background-color: nth($base_color,1);
+    border-color: nth($base_color,3);
     outline:0;
     -webkit-appearance: button;
     &:hover{
-    	border-color:#108ee9;
-    	color:#108ee9;
+    	border-color:nth($base_color,4);
+    	color:nth($base_color,4);
     }
     &.btn-primary{
-              color: #fff;
-              background-color: #108ee9;
-              border-color: #108ee9;
+              color: nth($base_color,1);
+              background-color: nth($base_color,4);
+              border-color: nth($base_color,4);
               &:hover{
     	            opacity: 0.8;
     	            filter: alpha(opacity=80);
              }
      }
      
-     &.btn-big{
+     &.btn-danger{
+             color:nth($base_color,1);
+             background-color: nth($base_color,5);
+             border-color: nth($base_color,5);
+             &:hover{
+                    opacity: 0.8;
+                    filter: alpha(opacity=80);
+             }
+     } 
+    
+     &.btn-sm{
+             padding: 4px 12px;
+             font-size: 10px;
+             line-height:1;
+     }
+     &.btn-md{
              padding: 8px 15px;
              font-size: 14px;
              border-radius: 4px;
@@ -51,6 +68,13 @@
              font-size: 16px;
              border-radius: 4px;
              line-height:1.333;
+     }
+
+     &.btn-xl{
+             padding: 12px 15px;
+             font-size: 18px;
+             border-radius: 4px;
+             line-height:1.45;
      }
 
      &.btn-block{
