@@ -68,12 +68,22 @@ class Aside extends Component{
 	constructor(props){
 	          super(props);
 	}
-               static get _LAYOUT_ASIDE(){
-               	    return true;
-               }
-
+       static get _LAYOUT_ASIDE(){
+       	    return true;
+       }
+       static get propTypes(){
+                  return {
+                         style:PropTypes.object,
+                         role:PropTypes.string, 
+                        className:PropTypes.string
+                  }
+        }
 	render(){
-		return (<aside className="layout-aside">{this.props.children}</aside>)
+                const {className,style,children,role} = this.props;
+                let classList = ['layout-aside'];
+                if(className){classList.push(className)};
+                if(role==="admin"){classList.push('layout-admin-aside')}    
+		return (<aside className={classList.join(' ')} style={style}>{children}</aside>)
 	}
 }
 

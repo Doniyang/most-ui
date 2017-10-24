@@ -46,21 +46,11 @@ class Tip extends Component{
                }
                 
                componentWillReceiveProps(nextProps){
-                     if(nextProps.visible){
-                     	document.body.appendChild(this.el);
-                     }else{
-                          let domNode = document.getElementById('tooltip');
-                          if(Object.prototype.toString.call(domNode)==="[object HTMLDivElement]"){
-                       	document.body.removeChild(domNode);
-                           }  
-                     }	
+                     nextProps.visible?document.body.appendChild(this.el):document.body.removeChild(this.el);
                }
 
                componentWillUnmount(){
-               	       let domNode = document.getElementById('tooltip');
-                       if(Object.prototype.toString.call(domNode)==="[object HTMLDivElement]"){
-                       	document.body.removeChild(domNode);
-                       }    
+               	       document.body.removeChild(this.el);
                }
 
 	render(){
@@ -122,7 +112,7 @@ export default class Tooltip extends Component{
                	     let site = e.currentTarget.getBoundingClientRect();
                	     this.setState((prevState,props)=>{
                	     	if(props.mode==="right"){
-                                       return {visible:true,styleCss:{right:document.documentElement.clientWidth-site.right,top:site.top}}
+                                       return {visible:true,styleCss:{right:"calc(100% - " + site.right + "px)",top:site.top}}
                	     	}else{
                                       return {visible:true,styleCss:{left: site.left,top:site.top}}  
                	     	}

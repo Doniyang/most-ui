@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 import PropTypes from 'prop-types';
-import 'index.scss';
+import './index.scss';
 
 class Item extends Component{
 	constructor(props){
@@ -12,7 +12,8 @@ class Item extends Component{
 	}
 
 	render(){
-		return (<li className="menu-item"></li>) 
+		const {children} = this.props;
+		return (<li className="menu-item">{children}</li>) 
 	}
 }
 
@@ -26,6 +27,10 @@ class Menu extends Component{
 	}
 
 	render(){
-		return (<ul className="menu-wrap"></ul>)
+		const {children} = this.props;
+		return (<ul className="menu-wrap">{children}</ul>)
 	}
 }
+
+Menu.Item = Item;
+export default Menu;

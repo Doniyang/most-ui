@@ -1,0 +1,37 @@
+.menu-wrap{
+	position: relative;
+	list-style: none;
+	padding:0;
+	margin:0;
+	overflow: hidden;
+	background-color:#838688;
+	& .menu-item{
+		list-style:none;
+                               height: 42px;
+                               line-height: 42px;
+                               & > a{ 
+		        display: inline-block;
+		        height:42px;
+		        width: 100%;
+		        color: -webkit-link;
+                                       cursor: pointer;
+                                       font-family: MicrosoftYaHei;
+                                       font-size: 12px;
+                                       color: #FFFFFF;
+                                       padding-left:36px;
+                                       text-decoration: none;
+                                       border-left: 2px solid  #6F9CFD;
+		        &:hover{
+		        	background-color:#626262;
+		        }
+		        &:not([class*="active"]){
+		        	border-left:none;
+		        }
+		}
+
+		& > [class*="active"]{
+		        background-color:#626262;
+		}
+                               
+	}
+}

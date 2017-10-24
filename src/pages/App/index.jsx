@@ -5,7 +5,8 @@ import Button from 'Components/Button';
 import DatePicker from 'Components/DatePicker';
 import Pagination from 'Components/Pagination';
 import Tooltip from 'Components/Tooltip';
-
+import Avatar from 'Components/Avatar';
+import Checkbox from 'Components/Checkbox';
 import './index.scss';
 const {Aside,Header,Main,Footer} = Layout;
 export default class App extends Component{
@@ -23,9 +24,13 @@ export default class App extends Component{
 	 render(){
 	 	return (<div className="app-container">
                                         <Layout style={{height:'100%'}}>
-                                                  <Aside>aside</Aside>
+                                                  <Aside>
+                                                           <Checkbox value="1" onClick={(a)=>console.log(a)}>checkbox</Checkbox>
+                                                  </Aside>
                                                   <Layout>
-                                                  	<Header>header</Header>
+                                                  	<Header>
+                                                             <Avatar icon={<i className="ao"></i>}></Avatar>
+                                                    </Header>
                                                   	<Main>
                                                   		<div>
                                                   			<DatePicker></DatePicker>
