@@ -22,7 +22,9 @@ export default class Avatar extends Component{
 		       size:'default'
 	                }
 	}
-	
+
+
+
 	render(){
 		const {icon,src,shape,size} = this.props;
 		let avaChildren = null;

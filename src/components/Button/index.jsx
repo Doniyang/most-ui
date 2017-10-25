@@ -6,7 +6,8 @@ export default class Button extends Component{
 	constructor(props){
 	        super(props);
 	}
-  
+
+	
 	static get propTypes(){
                       return {
                       	   type:PropTypes.string,

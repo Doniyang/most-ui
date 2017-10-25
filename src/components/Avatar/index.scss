@@ -1,32 +1,48 @@
-$avatar_color:#cccccc,#FFFFFF;
-$avatar_size_map:(mini:16px,small:32px,default:48px,large:60px);
-@mixin avatar-shape($radius) {
-     border-radius:$radius;	
-}
 .avatar-wrap{
 	display: inline-block;
 	text-align: center;
-	background-color: nth($avatar_color,1);
-	color: nth($avatar_color,2);
+	background-color: #ccc;
+	color: #fff;
 	white-space: nowrap;
 	position: relative;
 	overflow: hidden;	
-	@each $label, $map in $avatar_size_map {
-	      &.avatar-#{$label}{
-                               height:$map;
-                               width:$map;
-                               &>*{
-                               	       line-height: $map;
-                               }
-	      }	
+	&.avatar-mini{
+	       width: 16px;
+	       height: 16px;
+	       & > *{
+	       	line-height: 16px;
+	       }
+	}
+	&.avatar-small{
+	       width: 32px;
+	       height: 32px;
+	       & > *{
+	       	line-height: 32px;
+	       }
+	}
+
+	&.avatar-default{
+	       width: 48px;
+	       height: 48px;
+	       & > *{
+	       	line-height: 48px;
+	       }
+	}
+
+	&.avatar-large{
+	       width: 60px;
+	       height: 60px;
+	       & > *{
+	       	line-height: 60px;
+	       }
 	}
 
 	&.avatar-circle{
-	     @include avatar-shape(50%);
+	      border-radius: 50%;
 	}
 
 	&.avatar-square{
-	       @include avatar-shape(4px);
+	        border-radius:4px;
 	}
 
 	& > img{
@@ -35,4 +51,3 @@ $avatar_size_map:(mini:16px,small:32px,default:48px,large:60px);
                      height: 100%; 	
 	}
 }
-

@@ -1,4 +1,10 @@
-
+.checkbox-group-wrap{
+	display:block;
+	overflow: hidden;
+	& .checkbox-group-item{
+		padding-right:8px;
+	}
+}
 .checkbox-wrap{
 	cursor: pointer;
 	font-size: 12px;
@@ -91,10 +97,6 @@
 				border-radius: 2px;
 				border: 1px solid #108ee9;
 				content: "";
-				-webkit-animation: antCheckboxEffect .36s ease-in-out;
-				animation: antCheckboxEffect .36s ease-in-out;
-				-webkit-animation-fill-mode: both;
-				animation-fill-mode: both;
 				visibility: hidden;	
 			}
 		}

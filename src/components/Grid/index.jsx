@@ -8,10 +8,7 @@ export class Col extends Component{
 	}
                 
                 static get propTypes(){
-                	return {
-                                      className:PropTypes.string,
-                                      style:PropTypes.object
-                                 }
+                	return {}
                 }
 
                 render(){
