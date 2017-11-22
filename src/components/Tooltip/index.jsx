@@ -46,11 +46,22 @@ class Tip extends Component{
                }
                 
                componentWillReceiveProps(nextProps){
-                     nextProps.visible?document.body.appendChild(this.el):document.body.removeChild(this.el);
+                     if(nextProps.visible){
+                     	document.body.appendChild(this.el)
+                     }else{
+                     	 let domNode = document.getElementById('tooltip');
+                                if(Object.prototype.toString.call(domNode)==="[object HTMLDivElement]"){
+                       	     document.body.removeChild(domNode);
+                               }
+                     }	
                }
 
                componentWillUnmount(){
-               	       document.body.removeChild(this.el);
+               	      let domNode = document.getElementById('tooltip');
+                      if(Object.prototype.toString.call(domNode)==="[object HTMLDivElement]"){
+                       	document.body.removeChild(domNode);
+                       }
+               	       
                }
 
 	render(){

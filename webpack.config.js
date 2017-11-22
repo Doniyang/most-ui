@@ -7,11 +7,6 @@ module.exports = (env, args) => {
 		entry: () => path.resolve(__dirname, 'src/index.jsx'),
 		output: {
 			path: path.resolve(__dirname, 'src/dist'),
-			filename: ''
-
-		},
-		output: {
-			path: path.resolve(__dirname, 'src/dist'),
 			filename: 'bundle.js',
 			publicPath: '/'
 		},
